@@ -1,3 +1,17 @@
+<?php
+include_once('lib/Authentication.php');
+include_once('lib/Session.php');
+$auth = new Authentication();
+
+//check already loggedin
+Session::init();
+$auth->checkLoggedin();
+
+if( ($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['login']) ){
+    $formSubmitResponse = $auth->userLogin($_POST);
+    //var_dump($formSubmitResponse);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,18 +46,31 @@
         <div class="container">
             <div class="row">
               <div class="column column-50">
-                <form action="">
+              <?php
+              if(isset($formSubmitResponse)){
+                    if(is_array($formSubmitResponse)){
+                        echo '<ul class="error-response">';
+                        foreach($formSubmitResponse as $error){
+                            echo '<li>'.$error.'</li>';
+                        }
+                        echo '</ul>';
+                    }else{
+                        echo $formSubmitResponse;
+                    }
+                }
+              ?>
+                <form action="" method="POST">
                     <fieldset>
                         <div>
                             <label for="email">Email</label>
-                            <input type="text" id="email" name="email">
+                            <input type="text" id="email" name="email" value="<?php echo $_POST['email'] ?? ''; ?>">
                         </div>
                         <div>
                             <label for="password">Password</label>
-                            <input type="text" id="password" name="password">
+                            <input type="password" id="password" name="password" value="<?php echo $_POST['password'] ?? ''; ?>">
                         </div>
                         <div>
-                            <input class="button-primary" type="submit" value="Login">
+                            <input class="button-primary" type="submit" name="login" value="Login">
                         </div>
                     </fieldset>
                 </form>

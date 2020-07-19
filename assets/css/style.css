@@ -2,13 +2,15 @@ header h2 {
     font-weight: 600;
     margin: 0;
     display: inline-block;
-    border: 3px solid #606c76;
+    border: 3px solid #9b4dca;
     padding: 5px 20px;
     font-size: 25px;
+    background: #9b4dca;
+    color: #fff;
 }
 
 header h2 a{
-    color: #606c76;
+    color: #fff;
 }
 
 .breadcrumb h3 {
@@ -43,4 +45,37 @@ header {
     padding: 11px 20px;
     text-transform: uppercase;
     font-weight: 400;
+}
+.error-response li {
+    background: #FF4747;
+    color: #fff;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.error-response {
+    list-style: none;
+}
+label span {
+    color: #ff4747;
+    padding-left: 2px;
+}
+fieldset, input, select, textarea {
+    margin-bottom: 5px;
+}
+
+label {
+    margin-top: 15px;
+}
+
+.error-response {
+    color: #ff4747;
+}
+.success-msg {
+    background: #60ce83;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 13px;
 }

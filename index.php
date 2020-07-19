@@ -1,3 +1,13 @@
+<?php
+include('lib/Session.php');
+Session::init();
+Session::checkSession();
+
+//logout 
+if(isset($_GET['action']) && ($_GET['action']=='logout') ){
+    Session::destroySession();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +30,7 @@
                     <div class="main-menu">
                         <ul>
                             <li><a href="index.php">Dashboard</a></li>
-                            <li><a href="logout.php">Logout</a></li>
+                            <li><a href="?action=logout">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -40,6 +50,11 @@
         <div class="container">
             <div class="row">
               <div class="column">
+              <?php
+              //print loggedin success message
+              echo Session::getSession('login_message') ?? '';
+              Session::unsetSessionKey('login_message');
+              ?>
                 <table>
                     <thead>
                       <tr>
