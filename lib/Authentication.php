@@ -129,7 +129,7 @@ class Authentication{
     }
 
 
-    //check alread loggedin
+    //check already loggedin
     public function checkLoggedin(){
         if(Session::getSession('login')){
             header("Location: index.php");

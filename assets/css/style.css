@@ -1,16 +1,17 @@
-header h2 {
-    font-weight: 600;
-    margin: 0;
-    display: inline-block;
-    border: 3px solid #9b4dca;
-    padding: 5px 20px;
-    font-size: 25px;
-    background: #9b4dca;
-    color: #fff;
+header h2 a img {
+    height: 64px;
+    margin-right: 10px;
 }
 
 header h2 a{
-    color: #fff;
+    display: flex;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 400;
+    align-items: center;
+}
+header .row {
+    align-items: center;
 }
 
 .breadcrumb h3 {
@@ -78,4 +79,7 @@ label {
     color: #fff;
     padding: 5px 10px;
     font-size: 13px;
+}
+input.button-primary {
+    margin-top: 15px;
 }

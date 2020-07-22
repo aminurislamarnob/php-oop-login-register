@@ -17,7 +17,7 @@ if( ($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['login']) ){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OOP Login Register</title>
+    <title>OOP Login</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,700,700italic">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css">
@@ -28,7 +28,14 @@ if( ($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['login']) ){
         <div class="container">
             <div class="row">
                 <div class="column column-25">
-                    <h2><a href="index.php">LOGIN/REG</a></h2>
+                    <h2><a href="index.php"><img src="assets/images/php.png" alt="login register"> <span>Login <br>Register</span></a></h2>
+                </div>
+                <div class="column column-75">
+                    <div class="main-menu">
+                        <ul>
+                            <li><a href="register.php">Register</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,6 +78,7 @@ if( ($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['login']) ){
                         </div>
                         <div>
                             <input class="button-primary" type="submit" name="login" value="Login">
+                            <a class="button-primary" href="register.php">Register</a>
                         </div>
                     </fieldset>
                 </form>
