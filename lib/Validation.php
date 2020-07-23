@@ -55,6 +55,30 @@ class Validation{
     }
 
 
+    /**
+     * @param $userName
+     * @return bool
+     */
+    public function userNameExitsCheckWithOutCurrnetOne($userName, $userId){
+        //$userName = trim($userName);
+        if ( !empty($userName) && preg_match('/^[a-zA-Z0-9]{6,12}$/', $userName) ) {
+            $sql = "SELECT username FROM users WHERE username = :username AND id != :id";
+            $query = $this->db->prepare($sql);
+            $query->bindValue(':username', $userName);
+            $query->bindValue(':id', $userId);
+            $query->execute();
+
+            if($query->rowCount() > 0){
+                $this->addError("username", "Username already exists in database.");
+                return true;
+            }else{
+                return false;
+                $this->addError("username", "Username not exists in database.");
+            }
+        }
+    }
+
+
     public function passwordLength($password=''){
         //$password = trim($password);
         if ( !empty($password) && !preg_match('/^[a-zA-Z0-9]{6,}$/', $password) ) {
@@ -99,6 +123,33 @@ class Validation{
                 return true;
             }else{
                 if($existanceStatus == 0){ //0 check for not existance
+                    $this->addError("email", "Email address not exists in database.");
+                }
+                return false;
+            }
+        }
+    }
+
+    /**
+     * @param $email
+     * @return bool
+     */
+    public function emailExitsCheckWithOutCurrentOne($email, $existanceStatus, $userId){
+        //$email = trim($email);
+        if ( !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL) ) {
+            $sql = "SELECT email FROM users WHERE email = :email AND id != :id";
+            $query = $this->db->prepare($sql);
+            $query->bindValue(':email', $email);
+            $query->bindValue(':id', $userId);
+            $query->execute();
+
+            if($query->rowCount() > 0){
+                if($existanceStatus == 1){ //1 for if existance
+                    $this->addError("email", "Email address already exists in database.");
+                }
+                return true;
+            }else{
+                if($existanceStatus == 0){ //0 check for not existance for login check
                     $this->addError("email", "Email address not exists in database.");
                 }
                 return false;

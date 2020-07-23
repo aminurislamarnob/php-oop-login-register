@@ -10,6 +10,12 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
 //user class object
 include('lib/User.php');
 $usersData = new User();
+
+//form post
+if( ($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['update']) ){
+    $userEditResponse = $usersData->editUserById($userId, $_POST);
+}
+
 $requestedUser = $usersData->getUserById($userId);
 ?>
     <div class="breadcrumb">
@@ -26,15 +32,15 @@ $requestedUser = $usersData->getUserById($userId);
             <div class="row">
               <div class="column column-50">
               <?php
-              if(isset($formSubmitResponse)){
-                    if(is_array($formSubmitResponse)){
+              if(isset($userEditResponse)){
+                    if(is_array($userEditResponse)){
                         echo '<ul class="error-response">';
-                        foreach($formSubmitResponse as $error){
+                        foreach($userEditResponse as $error){
                             echo '<li>'.$error.'</li>';
                         }
                         echo '</ul>';
                     }else{
-                        echo $formSubmitResponse;
+                        echo $userEditResponse;
                     }
                 }
               ?>
