@@ -79,25 +79,40 @@ class Validation{
     }
 
 
-    public function passwordLength($password=''){
-        //$password = trim($password);
-        if ( !empty($password) && !preg_match('/^[a-zA-Z0-9]{6,}$/', $password) ) {
+    public function passwordLength($password){
+        if ( !empty($password) && !preg_match('/^[a-zA-Z]+[a-zA-Z0-9._]{6,}+$/', $password) ) {
             $this->addError("password", "Password must be 6 character and alphanumeric.");
             return false; //it will be used for password match check
+        }else{
+            return true;
         }
     }
 
     public function passwordMatch($password, $confirmPassword){
-        //$confirmPassword = trim($confirmPassword);
-        $password = trim($password);
         if( !empty($password) && !empty($confirmPassword) && !($password === $confirmPassword) ){
             $this->addError("password_match", "Password and confrim password field have to be same."); 
+        }else{
+            return true;
         }
     }
 
-    public function emailCheck($email){
-        //$email = trim($email);
+    public function passExistsCheck($userId, $newPassword, $oldPassword, $confirmPassword){
 
+        if( $this->passwordLength($oldPassword) && $this->passwordLength($newPassword) && $this->passwordMatch($newPassword, $confirmPassword) ){
+            $sql = "SELECT password FROM users WHERE id = :id";
+            $query = $this->db->prepare($sql);
+            $query->bindValue(":id", $userId);
+            $query->execute();
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+
+            if( !password_verify($oldPassword, $result['password']) ){
+                $this->addError("password_match_old", "You old password not matched with our system."); 
+            }
+        }
+    }
+
+
+    public function emailCheck($email){
         if ( !empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL) ) {
             $this->addError("email", "Email must be valid email address.");
         }

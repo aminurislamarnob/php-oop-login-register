@@ -33,6 +33,7 @@ $requestedUser = $usersData->getUserById($userId);
                     <li><strong>City: </strong><?php echo $requestedUser['city'] ?? ''; ?></li>
                 </ul>
                 <a href="edit-profile.php?id=<?php echo $requestedUser['id'] ?? ''; ?>" class="button button-primary">Edit Profile</a>
+                <a href="change-password.php?id=<?php echo $requestedUser['id'] ?? ''; ?>" class="button">Change Password</a>
               </div>
             </div>
           </div>

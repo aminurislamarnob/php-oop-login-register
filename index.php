@@ -4,6 +4,12 @@ include('inc/header.php');
 //include User class
 include('lib/User.php');
 $usersData = new User();
+
+//delete data
+if(isset($_GET['action']) && isset($_GET['id']) && $_GET['action'] == 'delete'){
+  $userId = $_GET['id'];
+  $deleteResponse = $usersData->deleteUserById($userId);
+}
 ?>
     <div class="breadcrumb">
         <div class="container">
@@ -19,6 +25,9 @@ $usersData = new User();
             <div class="row">
               <div class="column">
               <?php
+              //show delete messge
+              echo $deleteResponse ?? '';
+
               //print loggedin success message
               echo Session::getSession('login_message') ?? '';
               Session::unsetSessionKey('login_message');
